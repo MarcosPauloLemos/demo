@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     stages {
         stage ('checkout') {
             sh 'git pull origin master'
