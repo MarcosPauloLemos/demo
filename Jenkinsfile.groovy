@@ -2,32 +2,32 @@ pipeline {
     agent any
     stages {
         stage ('checkout') {
-            step {
+            steps {
                 sh 'git pull origin master'
             }
         }
 
         stage ('build') {
-            step {
+            steps {
                 sh './gradlew clean build -X test'
             }
         }
 
         stage ('test') {
-            step {
+            steps {
                 sh './gradlew test'
             }
         }
 
         stage ('docker') {
-            step {
+            steps {
                 sh 'docker build -t localhost:5000/demo:1 .'
                 sh 'docker push localhost:5000/demo:1'
             }
         }
 
         stage ('deploy') {
-            step {
+            steps {
                 sh 'docker run -d -p 9081:9081 localhost:5000/demo:1'
             }
         }
